@@ -1,10 +1,18 @@
 <template>
   <div class="app">
-    <hello-world class="app__hello"
-      title="Welcome to your Vue MDC Adapter App"
-      :vmaLinks="vmaLinks"
-      :mdcLinks="mdcLinks">
-    </hello-world>
+    <div id="pomodoro-master-wrapper">
+      <div id="pm-padding-left"></div>
+      <div id="pm-left"></div>
+      <div id="pm-master-clock-wrapper">
+        <div id="pm-master-clock">
+          <div id="pm-master-clock-inner">
+            <button class="mdc-icon-button material-icons pmmc-control-button">play_circle_filled</button>
+          </div>
+        </div>
+      </div>
+      <div id="pm-right"></div>
+      <div id="pm-padding-right"></div>
+    </div>
   </div>
 </template>
 
@@ -14,42 +22,7 @@
   export default {
     data () {
       return {
-        vmaLinks: [
-          {
-            title: 'Documentation',
-            url: 'https://stasson.github.io/vue-mdc-adapter'
-          },
-          {
-            title: 'GitHub',
-            url: 'https://github.com/stasson/vue-mdc-adapter'
-          },
-          {
-            title: 'Twitter',
-            url: 'https://twitter.com/vuemdc'
-          },
-          {
-            title: 'Chat',
-            url: 'https://gitter.im/vue-mdc-adapter/Lobby'
-          }
-        ],
-        mdcLinks: [
-          {
-            title: 'Documentation',
-            url: 'https://material.io/components/web/'
-          },
-          {
-            title: 'GitHub',
-            url: 'https://github.com/material-components/material-components-web'
-          },
-          {
-            title: 'Guidelines',
-            url: 'https://material.io/guidelines'
-          },
-          {
-            title: 'Awesome Material Components',
-            url: 'https://github.com/webdenim/awesome-material-components'
-          }
-        ]
+        
       }
     },
     components: { HelloWorld }
@@ -62,6 +35,8 @@
 
   // Then, import required files
   @import "@material/typography/mixins";
+  @import "@material/button/mdc-button";
+  @import "@material/icon-button/mdc-icon-button";
 
   html {
     width: 100%;
@@ -74,5 +49,77 @@
     width: 100%;
     min-height: 100%;
     margin: 0;
+  }
+
+  #pomodoro-master-wrapper {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    height: 100vh;
+    margin-left: auto;
+    margin-right: auto;
+
+    --background-left: #FFEDF7;
+    --background-right: #003164;
+    --clock-background-color: #FF4384;
+
+    #pm-padding-left {
+      flex: 0 1 auto;
+      background: var(--background-left);
+    }
+
+    #pm-left {
+      flex: 3 0 auto;
+      background: var(--background-left);
+    }
+
+    #pm-master-clock-wrapper {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      background-image: linear-gradient(to right, var(--background-left) 50%, var(--background-right) 50%,  var(--background-right) 100%);
+  
+      #pm-master-clock {
+        width: 510px;
+        height: 510px;
+        border: 3px solid var(--clock-background-color);
+        padding: 12px;
+        border-radius: 50%;
+
+        #pm-master-clock-inner {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          background: var(--clock-background-color);
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          .pmmc-control-button {
+            color: #FFF;
+            font-size: 96px;
+            width: auto;
+            height: auto;
+          }
+        }
+      }
+    }
+
+    #pm-master-clock-right {
+      flex: 0 0 270px;
+      background: var(--background-right);
+      position: relative;
+    }
+
+    #pm-right {
+      flex: 1 0 auto;
+      background: var(--background-right);
+    }
+
+    #pm-padding-right {
+      flex: 0 1 auto;
+      background: var(--background-right);
+    }
   }
 </style>
